@@ -2,19 +2,19 @@ public class Task {
     int id;
     String name;
     String description;
-    Status taskStatus;
+    Status status;
 
 
-    public Task(int id, String name, String description) {
+    public Task(String name, String description) {
         this.description = description;
-        this.id = id;
+        this.id = TaskManager.getNewId();
         this.name = name;
-        this.taskStatus = Status.NEW;
+        this.status = Status.NEW;
     }
 
     @Override
     public String toString() {
-        return String.format("ID задачи - %d, Название - %s, Описание - %s, Статус - %s",id,name,description, taskStatus.toString());
+        return String.format("ID задачи - %d, Название - %s, Описание - %s, Статус - %s",id,name,description, status.toString());
     }
 
     public int getId() {

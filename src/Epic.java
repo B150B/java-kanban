@@ -4,14 +4,14 @@ public class Epic extends Task {
 
     ArrayList<SubTask> subTasks;
 
-    Epic(int id, String name, String description) {
-        super(id, name, description);
+    Epic(String name, String description) {
+        super(name, description);
         subTasks = new ArrayList<>();
     }
 
 
     @Override
     public String toString() {
-        return String.format("ID задачи - %d, Название - %s, Описание - %s, Статус - %s, подзадачи - %s",id,name,description, taskStatus.toString(), subTasks.toString());
+        return String.format("ID задачи - %d, Название - %s, Описание - %s, Статус - %s, подзадачи - %s",id,name,description, status.toString(), subTasks.toString());
     }
 }
