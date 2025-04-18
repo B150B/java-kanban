@@ -1,6 +1,8 @@
 import java.util.ArrayList;
+
 import manager.TaskManager;
 import task.*;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -11,12 +13,12 @@ public class Main {
         Task task1 = new Task("Задача 1", "Описание задачи 1");
         Task task2 = new Task("Задача 2", "Описание задачи 2");
 
-        Epic epic1 = new Epic("Эпик1","Описание эпика 1");
-        Epic epic2 = new Epic("Эпик2","Описание эпика 2");
+        Epic epic1 = new Epic("Эпик1", "Описание эпика 1");
+        Epic epic2 = new Epic("Эпик2", "Описание эпика 2");
 
-        SubTask subTask1 = new SubTask("Сабтаск 1","Описание сабтаска 1",3,Status.NEW);
-        SubTask subTask2 = new SubTask("Сабтаск 2","Описание сабтаска 2",4,Status.NEW);
-        SubTask subTask3 = new SubTask("Сабтаск 3","Описание сабтаска 3",4,Status.NEW);
+        SubTask subTask1 = new SubTask("Сабтаск 1", "Описание сабтаска 1", 3, Status.NEW);
+        SubTask subTask2 = new SubTask("Сабтаск 2", "Описание сабтаска 2", 4, Status.NEW);
+        SubTask subTask3 = new SubTask("Сабтаск 3", "Описание сабтаска 3", 4, Status.NEW);
 
         taskManager.addTask(task1);
         taskManager.addTask(task2);
@@ -33,16 +35,15 @@ public class Main {
         System.out.println("Список всех SubTask");
         System.out.println(taskManager.getAllSubTasks());
 
-        SubTask subTask4 = new SubTask("Сабтаск2-2","Описание сабтаска 2-2",4,Status.DONE);
-        taskManager.updateSubTask(subTask2,subTask4);
+        SubTask subTask4 = new SubTask("Сабтаск2-2", "Описание сабтаска 2-2", 4, Status.DONE);
+        taskManager.updateSubTask(subTask2, subTask4);
         System.out.println("Обновленный эпик4");
         System.out.println(taskManager.getEpic(4));
 
-        SubTask subTask5 = new SubTask("Сабтаск3-2","Описание сабтаска 3-2",4,Status.DONE);
-        taskManager.updateSubTask(subTask3,subTask5);
+        SubTask subTask5 = new SubTask("Сабтаск3-2", "Описание сабтаска 3-2", 4, Status.DONE);
+        taskManager.updateSubTask(subTask3, subTask5);
         System.out.println("Еще раз обновленный эпик4");
         System.out.println(taskManager.getEpic(4));
-
 
 
         taskManager.deleteTask(1);
@@ -54,18 +55,6 @@ public class Main {
         System.out.println(taskManager.getAllEpic());
         System.out.println("Удалили эпик с id4, вывод всех сабтасков после удаления");
         System.out.println(taskManager.getAllSubTasks());
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     }

@@ -14,9 +14,6 @@ public class TaskManager {
     private HashMap<Integer, SubTask> subTaskHashMap = new HashMap<>();
 
 
-
-
-
     public void addTask(Task task) {
         taskHashMap.put(task.getId(), task);
     }
