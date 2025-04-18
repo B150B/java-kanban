@@ -14,7 +14,7 @@ public class Epic extends Task {
 
     @Override
     public String toString() {
-        return String.format("ID задачи - %d, Название - %s, Описание - %s, Статус - %s, входящие подзадачи - %s",getId(),getName(),getDescription(), getStatus().toString(), subTasksIds.toString());
+        return String.format("%nID задачи - %d, Название - %s, Описание - %s, Статус - %s, входящие подзадачи - %s",getId(),getName(),getDescription(), getStatus().toString(), subTasksIds.toString());
     }
 
     public void addSubtaskToEpic (SubTask subTask) {

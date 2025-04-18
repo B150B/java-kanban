@@ -9,15 +9,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class TaskManager {
-    private int id = 1;
     private HashMap<Integer, Task> taskHashMap = new HashMap<>();
     private HashMap<Integer, Epic> epicHashMap = new HashMap<>();
     private HashMap<Integer, SubTask> subTaskHashMap = new HashMap<>();
 
 
-    public int getNewId() {
-        return id++;
-    }
+
 
 
     public void addTask(Task task) {
@@ -132,6 +129,9 @@ public class TaskManager {
 
 
     public void deleteEpic(int id) {
+        for (int subTasksId : epicHashMap.get(id).getSubtasksIds()) {
+            subTaskHashMap.remove(subTasksId);
+        }
         epicHashMap.remove(id);
     }
 
@@ -149,6 +149,8 @@ public class TaskManager {
                 isDone = false;
             } else if (subTask.getStatus().equals(Status.NEW)) {
                 isDone = false;
+            } else {
+                isNew = false;
             }
         }
         if (isDone) {

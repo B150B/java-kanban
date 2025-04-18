@@ -1,26 +1,31 @@
 package task;
+
 import manager.TaskManager;
 
 import java.util.Objects;
 
 public class Task {
+    static private int idCounter = 1;
     private int id;
     private String name;
     private String description;
     private Status status;
-    TaskManager taskManager = new TaskManager();
+
+    private static int getNewId() {
+        return idCounter++;
+    }
 
 
     public Task(String name, String description) {
         this.description = description;
-        this.id = taskManager.getNewId();
+        this.id = getNewId();
         this.name = name;
         this.status = Status.NEW;
     }
 
     public Task(String name, String description, Status status) {
         this.description = description;
-        this.id = taskManager.getNewId();
+        this.id = getNewId();
         this.name = name;
         this.status = status;
     }
@@ -33,7 +38,7 @@ public class Task {
         return name;
     }
 
-    public void setName (String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -54,10 +59,9 @@ public class Task {
     }
 
 
-
     @Override
     public String toString() {
-        return String.format("ID задачи - %d, Название - %s, Описание - %s, Статус - %s", id, name, description, status.toString());
+        return String.format("%nID задачи - %d, Название - %s, Описание - %s, Статус - %s", id, name, description, status.toString());
     }
 
 

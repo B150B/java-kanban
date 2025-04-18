@@ -26,14 +26,40 @@ public class Main {
         taskManager.addSubTask(subTask2);
         taskManager.addSubTask(subTask3);
 
-
+        System.out.println("Список всех Task");
         System.out.println(taskManager.getAllTasks());
+        System.out.println("Список всех Epic");
         System.out.println(taskManager.getAllEpic());
+        System.out.println("Список всех SubTask");
         System.out.println(taskManager.getAllSubTasks());
 
-        System.out.println(taskManager.getNewId());
-        System.out.println(taskManager.getNewId());
-        System.out.println(taskManager.getNewId());
+        SubTask subTask4 = new SubTask("Сабтаск2-2","Описание сабтаска 2-2",4,Status.DONE);
+        taskManager.updateSubTask(subTask2,subTask4);
+        System.out.println("Обновленный эпик4");
+        System.out.println(taskManager.getEpic(4));
+
+        SubTask subTask5 = new SubTask("Сабтаск3-2","Описание сабтаска 3-2",4,Status.DONE);
+        taskManager.updateSubTask(subTask3,subTask5);
+        System.out.println("Еще раз обновленный эпик4");
+        System.out.println(taskManager.getEpic(4));
+
+
+
+        taskManager.deleteTask(1);
+        System.out.println("Удалили задачу 1, вывод всех задач после удаления");
+        System.out.println(taskManager.getAllTasks());
+
+        taskManager.deleteEpic(4);
+        System.out.println("Удалили эпик с id4, вывод всех эпиков после удаления");
+        System.out.println(taskManager.getAllEpic());
+        System.out.println("Удалили эпик с id4, вывод всех сабтасков после удаления");
+        System.out.println(taskManager.getAllSubTasks());
+
+
+
+
+
+
 
 
 
