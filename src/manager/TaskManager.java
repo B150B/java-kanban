@@ -51,7 +51,7 @@ public class TaskManager {
         Epic epic = epicHashMap.get(id);
         ArrayList<SubTask> result = new ArrayList<>();
         for (Integer subTaskId : epic.getSubtasksIds()) {
-                result.add(subTaskHashMap.get(subTaskId));
+            result.add(subTaskHashMap.get(subTaskId));
         }
         return result;
     }
@@ -78,7 +78,6 @@ public class TaskManager {
             setEpicStatus(epic);
         }
     }
-
 
 
     public void clearAllEpics() {
@@ -141,7 +140,7 @@ public class TaskManager {
         boolean isNew = true;
         boolean isDone = true;
         ArrayList<SubTask> subTasks = new ArrayList<>();
-        for (int subTaskId : epic.getSubtasksIds ()) {
+        for (int subTaskId : epic.getSubtasksIds()) {
             subTasks.add(subTaskHashMap.get(subTaskId));
         }
         for (SubTask subTask : subTasks) {
