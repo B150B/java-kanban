@@ -1,16 +1,14 @@
+package task;
+
 public class SubTask extends Task {
 
-    int partOfEpic;
+    private int partOfEpic;
 
-    public SubTask(String name, String description, int partOfEpic) {
-        super(name, description);
-        this.partOfEpic = partOfEpic;
-    }
 
     public SubTask(String name, String description, int partOfEpic, Status status) {
         super(name, description);
         this.partOfEpic = partOfEpic;
-        this.status = status;
+        setStatus(status);
     }
 
 
@@ -21,6 +19,6 @@ public class SubTask extends Task {
 
     @Override
     public String toString() {
-        return String.format("%n-ID подзадачи - %d, Часть Эпика - %d Название - %s, Описание - %s, Статус - %s", id, partOfEpic, name, description, status.toString());
+        return String.format("%n-ID подзадачи - %d, Часть Эпика - %d Название - %s, Описание - %s, Статус - %s", getId(), partOfEpic, getName(), getDescription(), getStatus().toString());
     }
 }
