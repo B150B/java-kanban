@@ -9,22 +9,34 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class TaskManager {
+    private int id = 1;
     private HashMap<Integer, Task> taskHashMap = new HashMap<>();
     private HashMap<Integer, Epic> epicHashMap = new HashMap<>();
     private HashMap<Integer, SubTask> subTaskHashMap = new HashMap<>();
 
-
-    public void addTask(Task task) {
-        taskHashMap.put(task.getId(), task);
+    public int getNewId() {
+        return id++;
     }
 
+
+    public void addTask(Task task) {
+        int newId = getNewId();
+        task.setId(newId);
+        taskHashMap.put(newId, task);
+    }
+
+
     public void addEpic(Epic epic) {
-        epicHashMap.put(epic.getId(), epic);
+        int newId = getNewId();
+        epic.setId(newId);
+        epicHashMap.put(newId, epic);
     }
 
 
     public void addSubTask(SubTask subTask) {
-        subTaskHashMap.put(subTask.getId(), subTask);
+        int newId = getNewId();
+        subTask.setId(newId);
+        subTaskHashMap.put(newId, subTask);
         Epic parentalEpic = epicHashMap.get(subTask.getPartOfEpic());
         parentalEpic.addSubtaskToEpic(subTask);
         setEpicStatus(parentalEpic);
@@ -52,11 +64,7 @@ public class TaskManager {
 
 
     public ArrayList<Epic> getAllEpic() {
-        ArrayList<Epic> result = new ArrayList<>();
-        for (Epic epic : epicHashMap.values()) {
-            result.add(epic);
-        }
-        return result;
+        return new ArrayList<>(epicHashMap.values());
     }
 
 
@@ -110,6 +118,7 @@ public class TaskManager {
         oldSubTask.setStatus(updatedSubTask.getStatus());
         setEpicStatus(epicHashMap.get(oldSubTask.getPartOfEpic()));
     }
+
 
 
     public void deleteTask(int id) {
