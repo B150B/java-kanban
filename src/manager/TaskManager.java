@@ -103,22 +103,20 @@ public class TaskManager {
     }
 
 
-    public void updateTask(Task oldTask, Task updatedTask) {
-        oldTask = taskHashMap.get(oldTask.getId());
-        oldTask.setName(updatedTask.getName());
-        oldTask.setDescription(updatedTask.getDescription());
-        oldTask.setStatus(updatedTask.getStatus());
+    public void updateTask(Task updatedTask) {
+        taskHashMap.put(updatedTask.getId(), updatedTask);
     }
 
 
-    public void updateSubTask(SubTask oldSubTask, Task updatedSubTask) {
-        oldSubTask = subTaskHashMap.get(oldSubTask.getId());
-        oldSubTask.setName(updatedSubTask.getName());
-        oldSubTask.setDescription(updatedSubTask.getDescription());
-        oldSubTask.setStatus(updatedSubTask.getStatus());
-        setEpicStatus(epicHashMap.get(oldSubTask.getPartOfEpic()));
+    public void updateSubTask(SubTask updatedSubTask) {
+        subTaskHashMap.put(updatedSubTask.getId(), updatedSubTask);
+        setEpicStatus(epicHashMap.get(updatedSubTask.getPartOfEpic()));
     }
 
+    public void updateEpic(Epic updatedEpic) {
+        epicHashMap.put(updatedEpic.getId(), updatedEpic);
+        setEpicStatus(epicHashMap.get(updatedEpic.getId()));
+    }
 
 
     public void deleteTask(int id) {
@@ -142,7 +140,7 @@ public class TaskManager {
     }
 
 
-    public void setEpicStatus(Epic epic) { //Проверяем статус эпика по подзадачам внутри него
+    private void setEpicStatus(Epic epic) { //Проверяем статус эпика по подзадачам внутри него
         boolean isNew = true;
         boolean isDone = true;
         ArrayList<SubTask> subTasks = new ArrayList<>();
