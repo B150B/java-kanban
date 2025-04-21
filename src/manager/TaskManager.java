@@ -14,7 +14,7 @@ public class TaskManager {
     private HashMap<Integer, Epic> epicHashMap = new HashMap<>();
     private HashMap<Integer, SubTask> subTaskHashMap = new HashMap<>();
 
-    public int getNewId() {
+    private int getNewId() {
         return id++;
     }
 
@@ -115,7 +115,6 @@ public class TaskManager {
 
     public void updateEpic(Epic updatedEpic) {
         epicHashMap.put(updatedEpic.getId(), updatedEpic);
-        setEpicStatus(epicHashMap.get(updatedEpic.getId()));
     }
 
 
@@ -125,10 +124,10 @@ public class TaskManager {
 
 
     public void deleteSubTask(int id) {
-        Epic ParentalEpic = epicHashMap.get(subTaskHashMap.get(id).getPartOfEpic());
+        Epic parentalEpic = epicHashMap.get(subTaskHashMap.get(id).getPartOfEpic());
         subTaskHashMap.remove(id);
-        ParentalEpic.deleteSubtaskFromEpic(id);
-        setEpicStatus(ParentalEpic);
+        parentalEpic.deleteSubtaskFromEpic(id);
+        setEpicStatus(parentalEpic);
     }
 
 
