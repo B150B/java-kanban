@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 
+import manager.InMemoryHistoryManager;
 import manager.InMemoryTaskManager;
+import manager.Managers;
 import task.*;
 
 public class Main {
@@ -28,44 +30,17 @@ public class Main {
         taskManager.addSubTask(subTask2);
         taskManager.addSubTask(subTask3);
 
-        System.out.println("Список всех Task:");
-        System.out.println(taskManager.getAllTasks());
-        System.out.println("Список всех Epic:");
-        System.out.println(taskManager.getAllEpic());
-        System.out.println("Список всех SubTask:");
-        System.out.println(taskManager.getAllSubTasks());
+        taskManager.getTask(1);
+        taskManager.getTask(2);
+        taskManager.getEpic(3);
+        taskManager.getEpic(4);
+        taskManager.getSubTask(5);
+        taskManager.getSubTask(6);
+        taskManager.getSubTask(7);
 
-        Task updTask1 = taskManager.getTask(1);
-        updTask1.setDescription("Новое описание task1");
-        updTask1.setStatus(Status.IN_PROGRESS);
-        taskManager.updateTask(updTask1);
-        System.out.print("Обновленный task1:");
-        System.out.println(taskManager.getTask(1));
-
-        SubTask updSubTask2 = taskManager.getSubTask(6);
-        updSubTask2.setStatus(Status.DONE);
-        taskManager.updateSubTask(updSubTask2);
-
-        System.out.print("Обновленный эпик4:");
-        System.out.println(taskManager.getEpic(4));
-
-        SubTask updSubTask3 = taskManager.getSubTask(7);
-        updSubTask3.setStatus(Status.DONE);
-        taskManager.updateSubTask(updSubTask3);
-
-        System.out.print("Еще раз обновленный эпик4:");
-        System.out.println(taskManager.getEpic(4));
+        System.out.println(taskManager.getHistory());
 
 
-        taskManager.deleteTask(1);
-        System.out.println("Удалили задачу 1, вывод всех задач после удаления:");
-        System.out.println(taskManager.getAllTasks());
-
-        taskManager.deleteEpic(4);
-        System.out.println("Удалили эпик с id4, вывод всех эпиков после удаления:");
-        System.out.println(taskManager.getAllEpic());
-        System.out.println("Удалили эпик с id4, вывод всех сабтасков после удаления:");
-        System.out.println(taskManager.getAllSubTasks());
 
 
     }

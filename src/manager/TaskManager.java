@@ -48,4 +48,5 @@ public interface TaskManager {
     void deleteEpic(int id);
 
     void setEpicStatus(Epic epic);
+
 }
