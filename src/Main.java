@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import manager.InMemoryHistoryManager;
 import manager.InMemoryTaskManager;
 import manager.Managers;
+import manager.TaskManager;
 import task.*;
 
 public class Main {
@@ -10,8 +11,8 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Поехали!");
 
-        InMemoryTaskManager taskManager = new InMemoryTaskManager();
-        InMemoryHistoryManager historyManager = new InMemoryHistoryManager();
+        InMemoryTaskManager taskManager = (InMemoryTaskManager) Managers.getDefault();
+        InMemoryHistoryManager historyManager = (InMemoryHistoryManager) Managers.getDefaultHistory();
 
         Task task1 = new Task("Задача 1", "Описание задачи 1");
         Task task2 = new Task("Задача 2", "Описание задачи 2");
@@ -31,18 +32,15 @@ public class Main {
         taskManager.addSubTask(subTask2);
         taskManager.addSubTask(subTask3);
 
-        historyManager.add(task1);
-        historyManager.add(task2);
-        historyManager.add(epic1);
-        historyManager.add(epic2);
-        historyManager.add(subTask1);
-        historyManager.add(subTask2);
-        historyManager.add(subTask3);
+        taskManager.getTask(1);
+        taskManager.getTask(2);
+        taskManager.getEpic(3);
+        taskManager.getEpic(4);
+        taskManager.getSubTask(5);
+        taskManager.getSubTask(6);
+        taskManager.getSubTask(7);
 
-        System.out.println(historyManager.getHistory());
-
-
-
+        System.out.println(taskManager.getHistory());
 
     }
 

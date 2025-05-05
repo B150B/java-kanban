@@ -8,19 +8,19 @@ import task.Task;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 
 public class InMemoryTaskManager implements TaskManager {
 
     private int id = 1;
-    private HashMap<Integer, Task> taskHashMap = new HashMap<>();
-    private HashMap<Integer, Epic> epicHashMap = new HashMap<>();
-    private HashMap<Integer, SubTask> subTaskHashMap = new HashMap<>();
-    private ArrayList<Task> history = new ArrayList<>();
+    private Map<Integer, Task> taskHashMap = new HashMap<>();
+    private Map<Integer, Epic> epicHashMap = new HashMap<>();
+    private Map<Integer, SubTask> subTaskHashMap = new HashMap<>();
     private HistoryManager inMemoryHistoryManager = Managers.getDefaultHistory();
 
-    @Override
-    public int getNewId() {
+
+    private int getNewId() {
         return id++;
     }
 
@@ -107,7 +107,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public Task getTask(int id) {
         Task task = taskHashMap.get(id);
-        addToHistory(task);
+        inMemoryHistoryManager.add(task);
         return task;
     }
 
@@ -115,7 +115,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public SubTask getSubTask(int id) {
         SubTask subTask = subTaskHashMap.get(id);
-        addToHistory(subTask);
+        inMemoryHistoryManager.add(subTask);
         return subTask;
     }
 
@@ -123,7 +123,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public Epic getEpic(int id) {
         Epic epic = epicHashMap.get(id);
-        addToHistory(epic);
+        inMemoryHistoryManager.add(epic);
         return epic;
     }
 
@@ -170,8 +170,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
 
-    @Override
-    public void setEpicStatus(Epic epic) { //Проверяем статус эпика по подзадачам внутри него
+    private void setEpicStatus(Epic epic) { //Проверяем статус эпика по подзадачам внутри него
         boolean isNew = true;
         boolean isDone = true;
         ArrayList<SubTask> subTasks = new ArrayList<>();
@@ -199,15 +198,8 @@ public class InMemoryTaskManager implements TaskManager {
 
 
     public ArrayList<Task> getHistory() {
-        return history;
+        return (ArrayList<Task>) inMemoryHistoryManager.getHistory();
     }
 
-    private void addToHistory(Task task) {
-        if (history.size() < 10) {
-            history.add(task);
-        } else {
-            history.remove(9);
-            history.add(task);
-        }
-    }
+
 }
