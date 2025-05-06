@@ -38,6 +38,13 @@ public class Main {
         taskManager.getSubTask(5);
         taskManager.getSubTask(6);
         taskManager.getSubTask(7);
+        taskManager.getTask(1);
+        taskManager.getTask(2);
+        taskManager.getEpic(3);
+        taskManager.getEpic(4);
+        taskManager.getSubTask(5);
+        taskManager.getSubTask(6);
+        taskManager.getSubTask(7);
 
         System.out.println(taskManager.getHistory());
 
