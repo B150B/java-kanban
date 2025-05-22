@@ -20,11 +20,11 @@ class InMemoryHistoryManagerTest {
 
     @Test
     void getHistoryAdding5Tasks() {
-        Task task1 = new Task("Таск1","Описание1");
-        Task task2 = new Task("Таск2","Описание2");
-        Task task3 = new Task("Таск3","Описание3");
-        Task task4 = new Task("Таск4","Описание4");
-        Task task5 = new Task("Таск5","Описание5");
+        Task task1 = new Task("Таск1", "Описание1");
+        Task task2 = new Task("Таск2", "Описание2");
+        Task task3 = new Task("Таск3", "Описание3");
+        Task task4 = new Task("Таск4", "Описание4");
+        Task task5 = new Task("Таск5", "Описание5");
         inMemoryTaskManager.addTask(task1);
         inMemoryTaskManager.addTask(task2);
         inMemoryTaskManager.addTask(task3);
@@ -47,23 +47,23 @@ class InMemoryHistoryManagerTest {
 
     @Test
     void adding3EqualTasksGetHistoryMustReturn1Record() {
-        Task task1 = new Task("Таск1","Описание1");
+        Task task1 = new Task("Таск1", "Описание1");
         inMemoryTaskManager.addTask(task1);
         inMemoryHistoryManager.add(task1);
         inMemoryHistoryManager.add(task1);
         inMemoryHistoryManager.add(task1);
         int expected = 1;
         int result = inMemoryHistoryManager.getHistory().size();
-        assertEquals(expected,result);
+        assertEquals(expected, result);
     }
 
     @Test
-    void adding5TasksDeleteFirstTask () {
-        Task task1 = new Task("Таск1","Описание1");
-        Task task2 = new Task("Таск2","Описание2");
-        Task task3 = new Task("Таск3","Описание3");
-        Task task4 = new Task("Таск4","Описание4");
-        Task task5 = new Task("Таск5","Описание5");
+    void adding5TasksDeleteFirstTask() {
+        Task task1 = new Task("Таск1", "Описание1");
+        Task task2 = new Task("Таск2", "Описание2");
+        Task task3 = new Task("Таск3", "Описание3");
+        Task task4 = new Task("Таск4", "Описание4");
+        Task task5 = new Task("Таск5", "Описание5");
         inMemoryTaskManager.addTask(task1);
         inMemoryTaskManager.addTask(task2);
         inMemoryTaskManager.addTask(task3);
@@ -85,12 +85,12 @@ class InMemoryHistoryManagerTest {
     }
 
     @Test
-    void adding5TasksDeleteMiddleTask () {
-        Task task1 = new Task("Таск1","Описание1");
-        Task task2 = new Task("Таск2","Описание2");
-        Task task3 = new Task("Таск3","Описание3");
-        Task task4 = new Task("Таск4","Описание4");
-        Task task5 = new Task("Таск5","Описание5");
+    void adding5TasksDeleteMiddleTask() {
+        Task task1 = new Task("Таск1", "Описание1");
+        Task task2 = new Task("Таск2", "Описание2");
+        Task task3 = new Task("Таск3", "Описание3");
+        Task task4 = new Task("Таск4", "Описание4");
+        Task task5 = new Task("Таск5", "Описание5");
         inMemoryTaskManager.addTask(task1);
         inMemoryTaskManager.addTask(task2);
         inMemoryTaskManager.addTask(task3);
@@ -112,12 +112,12 @@ class InMemoryHistoryManagerTest {
     }
 
     @Test
-    void adding5TasksDeleteLastTask () {
-        Task task1 = new Task("Таск1","Описание1");
-        Task task2 = new Task("Таск2","Описание2");
-        Task task3 = new Task("Таск3","Описание3");
-        Task task4 = new Task("Таск4","Описание4");
-        Task task5 = new Task("Таск5","Описание5");
+    void adding5TasksDeleteLastTask() {
+        Task task1 = new Task("Таск1", "Описание1");
+        Task task2 = new Task("Таск2", "Описание2");
+        Task task3 = new Task("Таск3", "Описание3");
+        Task task4 = new Task("Таск4", "Описание4");
+        Task task5 = new Task("Таск5", "Описание5");
         inMemoryTaskManager.addTask(task1);
         inMemoryTaskManager.addTask(task2);
         inMemoryTaskManager.addTask(task3);

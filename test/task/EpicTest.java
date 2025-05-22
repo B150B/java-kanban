@@ -19,9 +19,9 @@ class EpicTest {
     @BeforeAll
     public static void beforeAll() {
         inMemoryTaskManager = new InMemoryTaskManager();
-        epic = new Epic("Эпик1","Описание1");
+        epic = new Epic("Эпик1", "Описание1");
         inMemoryTaskManager.addEpic(epic);
-        subtask1 = new SubTask("Сабтаск1","Описание1",1, Status.NEW);
+        subtask1 = new SubTask("Сабтаск1", "Описание1", 1, Status.NEW);
         inMemoryTaskManager.addSubTask(subtask1);
     }
 
@@ -30,21 +30,19 @@ class EpicTest {
     void testEqualsIfIdIsEqual() {
         boolean expected = epic.equals(epic);
         boolean result = epic.getId() == epic.getId();
-        assertEquals(expected,result);
+        assertEquals(expected, result);
     }
-
-
 
 
     @org.junit.jupiter.api.Test
     void addSubtaskToEpic() {
-        subtask2 = new SubTask("Сабтаск2","Описание2",1, Status.NEW);
+        subtask2 = new SubTask("Сабтаск2", "Описание2", 1, Status.NEW);
         inMemoryTaskManager.addSubTask(subtask2);
         ArrayList<Integer> result = epic.getSubtasksIds();
         ArrayList<Integer> expected = new ArrayList<>();
         expected.add(2);
         expected.add(3);
-        assertArrayEquals(result.toArray(),expected.toArray());
+        assertArrayEquals(result.toArray(), expected.toArray());
     }
 
     @org.junit.jupiter.api.Test
@@ -52,10 +50,8 @@ class EpicTest {
         epic.clearAllSubTasksFromEpic();
         ArrayList<Integer> result = epic.getSubtasksIds();
         ArrayList<Integer> expected = new ArrayList<>();
-        assertArrayEquals(result.toArray(),expected.toArray());
+        assertArrayEquals(result.toArray(), expected.toArray());
     }
-
-
 
 
 }

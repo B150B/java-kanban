@@ -10,7 +10,7 @@ public class Node {
     Task task;
 
 
-    public Node (Task task) {
+    public Node(Task task) {
         this.task = task;
     }
 
