@@ -16,16 +16,12 @@ public class InMemoryHistoryManager implements HistoryManager {
     @Override
     public void add(Task task) {
         int id = task.getId();
-        if (idAndNodeMap.containsKey(id)) {
+        if (idAndNodeMap.containsKey(id)) {    //Проверка на null, потому что теперь некоторые методы читают task у переданного в них node
             removeNode(idAndNodeMap.get(id));
-            Node newNode = new Node(task);
-            idAndNodeMap.put(id, newNode);
-            linkLast(task);
-        } else {
-            Node newNode = new Node(task);
-            idAndNodeMap.put(id, newNode);
-            linkLast(task);
         }
+        linkLast(task);
+        idAndNodeMap.put(id, tail);
+
     }
 
     @Override
@@ -45,9 +41,8 @@ public class InMemoryHistoryManager implements HistoryManager {
             head = new Node(task);
             tail = head;
         } else {
-            Node newNode = new Node(task);
+            Node newNode = new Node(tail, null, task);
             tail.next = newNode;
-            newNode.prev = tail;
             tail = newNode;
         }
     }
@@ -64,23 +59,21 @@ public class InMemoryHistoryManager implements HistoryManager {
 
 
     public void removeNode(Node node) {
-        Node currentNode = head;
-        while (currentNode != null) {
-            if (currentNode.task.equals(node.task)) {
-                if (currentNode.prev != null) {
-                    currentNode.prev.next = currentNode.next;
-                } else {
-                    head = currentNode.next;
-                }
-
-                if (currentNode.next != null) {
-                    currentNode.next.prev = currentNode.prev;
-                } else {
-                    tail = currentNode.prev;
-                }
-                break;
+        Node currentNode = idAndNodeMap.remove(node.task.getId());
+        if (currentNode == null) {
+            return;
+        } else {
+            if (currentNode.prev != null) {
+                currentNode.prev.next = currentNode.next;
+            } else {
+                head = currentNode.next;
             }
-            currentNode = currentNode.next;
+
+            if (currentNode.next != null) {
+                currentNode.next.prev = currentNode.prev;
+            } else {
+                tail = currentNode.prev;
+            }
         }
     }
 

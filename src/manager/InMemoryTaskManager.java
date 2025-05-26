@@ -180,6 +180,7 @@ public class InMemoryTaskManager implements TaskManager {
         inMemoryHistoryManager.remove(id);
         for (int subTasksId : epicHashMap.get(id).getSubtasksIds()) {
             subTaskHashMap.remove(subTasksId);
+            inMemoryHistoryManager.remove(subTasksId);
         }
         epicHashMap.remove(id);
     }

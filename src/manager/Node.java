@@ -14,6 +14,11 @@ public class Node {
         this.task = task;
     }
 
+    public Node(Node prev, Node next, Task task) {
+        this.next = next;
+        this.prev = prev;
+        this.task = task;
+    }
 
     @Override
     public boolean equals(Object o) {
