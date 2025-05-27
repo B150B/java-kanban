@@ -1,7 +1,5 @@
 package task;
 
-import manager.TaskManager;
-
 import java.util.Objects;
 
 public class Task {
