@@ -16,18 +16,14 @@ public class InMemoryHistoryManager implements HistoryManager {
     @Override
     public void add(Task task) {
         int id = task.getId();
-        if (idAndNodeMap.containsKey(id)) {    //Проверка на null, потому что теперь некоторые методы читают task у переданного в них node
-            removeNode(idAndNodeMap.get(id));
-        }
+        removeNode(idAndNodeMap.get(id));
         linkLast(task);
         idAndNodeMap.put(id, tail);
-
     }
 
     @Override
     public void remove(int id) {
         removeNode(idAndNodeMap.get(id));
-        idAndNodeMap.remove(id);
     }
 
     @Override
@@ -59,10 +55,10 @@ public class InMemoryHistoryManager implements HistoryManager {
 
 
     public void removeNode(Node node) {
-        Node currentNode = idAndNodeMap.remove(node.task.getId());
-        if (currentNode == null) {
+        if (node == null) {
             return;
         } else {
+            Node currentNode = idAndNodeMap.remove(node.task.getId());
             if (currentNode.prev != null) {
                 currentNode.prev.next = currentNode.next;
             } else {
