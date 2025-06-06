@@ -22,6 +22,14 @@ public class Task {
         this.status = status;
     }
 
+    public Task(int id, String name, String description, Status status) {
+        this.id = id;
+        this.description = description;
+        this.name = name;
+        this.status = status;
+    }
+
+
     public void setId(int id) {
         this.id = id;
     }
@@ -73,4 +81,19 @@ public class Task {
         hash *= id;
         return hash;
     }
+
+    public String toCSVLine() {
+        return String.format("%d,%s,%s,%s,%s", id, TaskType.TASK.toString(), name, getStatus().toString(), description);
+    }
+
+
+    static public Task fromCSVLine(String stringData) {
+        String[] dataArray = stringData.split(",");
+        int id = Integer.parseInt(dataArray[0]);
+        String name = dataArray[2];
+        Status status = Status.valueOf(dataArray[3]);
+        String description = dataArray[4];
+        return new Task(id, name, description, status);
+    }
+
 }
