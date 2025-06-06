@@ -69,7 +69,7 @@ public class Epic extends Task {
     }
 
 
-    static public Epic fromCSVLine(String stringData) {
+    public static Epic fromCSVLine(String stringData) {
         String[] dataArray = stringData.split(",");
         int id = Integer.parseInt(dataArray[0]);
         String name = dataArray[2];

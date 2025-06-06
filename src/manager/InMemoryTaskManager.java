@@ -20,7 +20,7 @@ public class InMemoryTaskManager implements TaskManager {
     protected HistoryManager inMemoryHistoryManager = Managers.getDefaultHistory();
 
 
-    private int getNewId() {
+    protected int getNewId() {
         return id++;
     }
 

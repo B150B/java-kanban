@@ -32,14 +32,14 @@ public class SubTask extends Task {
         return String.format("%d,%s,%s,%s,%s,%d", getId(), TaskType.SUBTASK.toString(), getName(), getStatus().toString(), getDescription(), getPartOfEpic());
     }
 
-     static public SubTask fromCSVLine (String stringData) {
+    public static SubTask fromCSVLine(String stringData) {
         String[] dataArray = stringData.split(",");
         int id = Integer.parseInt(dataArray[0]);
         String name = dataArray[2];
         Status status = Status.valueOf(dataArray[3]);
         String description = dataArray[4];
         int partOfEpic = Integer.parseInt(dataArray[5]);
-        return new SubTask(id,name,description,status,partOfEpic);
+        return new SubTask(id, name, description, status, partOfEpic);
     }
 
 

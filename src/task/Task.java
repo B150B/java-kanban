@@ -87,7 +87,7 @@ public class Task {
     }
 
 
-    static public Task fromCSVLine(String stringData) {
+    public static Task fromCSVLine(String stringData) {
         String[] dataArray = stringData.split(",");
         int id = Integer.parseInt(dataArray[0]);
         String name = dataArray[2];
