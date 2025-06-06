@@ -52,5 +52,18 @@ class EpicTest {
         assertArrayEquals(result.toArray(), expected.toArray());
     }
 
+    @org.junit.jupiter.api.Test
+    void convertToCSVLineAndBack () {
+        ArrayList subTasksIds = new ArrayList<>();
+        subTasksIds.add(9);
+        subTasksIds.add(10);
+        Epic epic4 = new Epic(5,"Эпик 5","Описание эпика 5",Status.NEW , subTasksIds );
+        String epicInString = epic4.toCSVLine();
+        Epic epic5 = Epic.fromCSVLine(epicInString);
+        String result = epic5.toString();
+        String expected = epic4.toString();
+        assertEquals(result,expected);
+    }
+
 
 }
