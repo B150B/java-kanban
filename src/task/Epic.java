@@ -1,17 +1,18 @@
 package task;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Epic extends Task {
 
-    private ArrayList<Integer> subTasksIds;
+    private List<Integer> subTasksIds;
 
     public Epic(String name, String description) {
         super(name, description);
         subTasksIds = new ArrayList<>();
     }
 
-    public Epic(int id, String name, String description, Status status, ArrayList<Integer> subTasksIds) {
+    public Epic(int id, String name, String description, Status status, List<Integer> subTasksIds) {
         super(id, name, description, status);
         this.subTasksIds = subTasksIds;
     }
@@ -38,7 +39,7 @@ public class Epic extends Task {
         subTasksIds = new ArrayList<>();
     }
 
-    public ArrayList<Integer> getSubtasksIds() {
+    public List<Integer> getSubtasksIds() {
         return subTasksIds;
     }
 
@@ -50,8 +51,8 @@ public class Epic extends Task {
         return result;
     }
 
-    public static ArrayList<Integer> stringToSubTasksId(String string) {
-        ArrayList<Integer> result = new ArrayList<>();
+    public static List<Integer> stringToSubTasksId(String string) {
+        List<Integer> result = new ArrayList<>();
         String[] stringArray = string.split(";");
         for (String intString : stringArray) {
             if (intString.isBlank()) {
@@ -75,7 +76,7 @@ public class Epic extends Task {
         String name = dataArray[2];
         Status status = Status.valueOf(dataArray[3]);
         String description = dataArray[4];
-        ArrayList<Integer> subTasksId = stringToSubTasksId(dataArray[5]);
+        List<Integer> subTasksId = stringToSubTasksId(dataArray[5]);
         return new Epic(id, name, description, status, subTasksId);
     }
 

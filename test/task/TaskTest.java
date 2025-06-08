@@ -32,11 +32,11 @@ class TaskTest {
 
     @Test
     void convertToCSVLineAndBack() {
-        Task Task4 = new Task(5, "Таск 4", "Описание таска 4", Status.NEW);
-        String TaskInCSVLine = Task4.toCSVLine();
-        Task Task5 = Task.fromCSVLine(TaskInCSVLine);
-        String result = Task5.toString();
-        String expected = Task4.toString();
+        Task task4 = new Task(5, "Таск 4", "Описание таска 4", Status.NEW);
+        String TaskInCSVLine = task4.toCSVLine();
+        Task task = Task.fromCSVLine(TaskInCSVLine);
+        String result = task.toString();
+        String expected = task4.toString();
         assertEquals(result, expected);
     }
 

@@ -8,6 +8,7 @@ import task.Task;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -53,21 +54,21 @@ public class InMemoryTaskManager implements TaskManager {
 
 
     @Override
-    public ArrayList<Task> getAllTasks() {
+    public List<Task> getAllTasks() {
         return new ArrayList<>(taskHashMap.values());
     }
 
 
     @Override
-    public ArrayList<SubTask> getAllSubTasks() {
+    public List<SubTask> getAllSubTasks() {
         return new ArrayList<>(subTaskHashMap.values());
     }
 
 
     @Override
-    public ArrayList<SubTask> getSubTasksFromEpic(int id) {
+    public List<SubTask> getSubTasksFromEpic(int id) {
         Epic epic = epicHashMap.get(id);
-        ArrayList<SubTask> result = new ArrayList<>();
+        List<SubTask> result = new ArrayList<>();
         for (Integer subTaskId : epic.getSubtasksIds()) {
             result.add(subTaskHashMap.get(subTaskId));
         }
@@ -76,7 +77,7 @@ public class InMemoryTaskManager implements TaskManager {
 
 
     @Override
-    public ArrayList<Epic> getAllEpic() {
+    public List<Epic> getAllEpic() {
         return new ArrayList<>(epicHashMap.values());
     }
 
@@ -213,7 +214,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
 
-    public ArrayList<Task> getHistory() {
+    public List<Task> getHistory() {
         return (ArrayList<Task>) inMemoryHistoryManager.getHistory();
     }
 

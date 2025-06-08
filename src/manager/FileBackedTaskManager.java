@@ -3,16 +3,18 @@ package manager;
 import task.Epic;
 import task.SubTask;
 import task.Task;
+import task.TaskType;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.List;
 
 public class FileBackedTaskManager extends InMemoryTaskManager {
 
-    File file;
+    private final File file;
 
 
     public FileBackedTaskManager(File file) {
@@ -27,7 +29,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                 Files.createFile(file.toPath());
             }
 
-            ArrayList<String> taskCSVLinesArray = new ArrayList<>();
+            List<String> taskCSVLinesArray = new ArrayList<>();
             for (Task task : taskHashMap.values()) {
                 taskCSVLinesArray.add(task.toCSVLine());
             }
@@ -38,36 +40,36 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                 taskCSVLinesArray.add(subTask.toCSVLine());
             }
             Files.write(file.toPath(), taskCSVLinesArray);
-        } catch (Exception e) {
-            System.out.println("Произошла ошибка записи в файл! " + e.getMessage());
+        } catch (Exception exception) {
+            System.out.println("Произошла ошибка записи в файл! " + exception.getMessage());
         }
     }
 
     public static FileBackedTaskManager loadFromFile(File file) {
         FileBackedTaskManager restoredManager = new FileBackedTaskManager(file);
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            while (br.ready()) {
-                String[] taskCSVArray = br.readLine().split("\\R");
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
+            while (bufferedReader.ready()) {
+                String[] taskCSVArray = bufferedReader.readLine().split("\\R");
                 for (String taskCSV : taskCSVArray) {
                     String[] taskData = taskCSV.split(",");
-                    String taskType = taskData[1];
+                    TaskType taskType = TaskType.valueOf(taskData[1]);
                     switch (taskType) {
-                        case "TASK":
+                        case TaskType.TASK:
                             Task task = Task.fromCSVLine(taskCSV);
                             restoredManager.putTaskWithID(task);
                             break;
-                        case "SUBTASK":
+                        case TaskType.SUBTASK:
                             SubTask subTask = SubTask.fromCSVLine(taskCSV);
                             restoredManager.putSubtaskWithID(subTask);
                             break;
-                        case "EPIC":
+                        case TaskType.EPIC:
                             Epic epic = Epic.fromCSVLine(taskCSV);
                             restoredManager.putEpicWithID(epic);
                     }
                 }
             }
-        } catch (Exception e) {
-            System.out.println("Ошибка загрузки файла! " + e.getMessage());
+        } catch (Exception exception) {
+            System.out.println("Ошибка загрузки файла! " + exception.getMessage());
         }
 
         return restoredManager;
@@ -144,17 +146,17 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     }
 
     @Override
-    public ArrayList<Epic> getAllEpic() {
+    public List<Epic> getAllEpic() {
         return super.getAllEpic();
     }
 
     @Override
-    public ArrayList<SubTask> getAllSubTasks() {
+    public List<SubTask> getAllSubTasks() {
         return super.getAllSubTasks();
     }
 
     @Override
-    public ArrayList<Task> getAllTasks() {
+    public List<Task> getAllTasks() {
         return super.getAllTasks();
     }
 
@@ -164,7 +166,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     }
 
     @Override
-    public ArrayList<Task> getHistory() {
+    public List<Task> getHistory() {
         return super.getHistory();
     }
 
@@ -174,7 +176,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     }
 
     @Override
-    public ArrayList<SubTask> getSubTasksFromEpic(int id) {
+    public List<SubTask> getSubTasksFromEpic(int id) {
         return super.getSubTasksFromEpic(id);
     }
 

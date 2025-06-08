@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import task.Task;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -35,8 +36,8 @@ class InMemoryHistoryManagerTest {
         inMemoryHistoryManager.add(task3);
         inMemoryHistoryManager.add(task4);
         inMemoryHistoryManager.add(task5);
-        ArrayList<Task> result = inMemoryHistoryManager.getHistory();
-        ArrayList<Task> expected = new ArrayList<>();
+        List<Task> result = inMemoryHistoryManager.getHistory();
+        List<Task> expected = new ArrayList<>();
         expected.add(task1);
         expected.add(task2);
         expected.add(task3);
@@ -75,8 +76,8 @@ class InMemoryHistoryManagerTest {
         inMemoryHistoryManager.add(task4);
         inMemoryHistoryManager.add(task5);
         inMemoryHistoryManager.remove(1);
-        ArrayList<Task> result = inMemoryHistoryManager.getHistory();
-        ArrayList<Task> expected = new ArrayList<>();
+        List<Task> result = inMemoryHistoryManager.getHistory();
+        List<Task> expected = new ArrayList<>();
         expected.add(task2);
         expected.add(task3);
         expected.add(task4);
@@ -102,8 +103,8 @@ class InMemoryHistoryManagerTest {
         inMemoryHistoryManager.add(task4);
         inMemoryHistoryManager.add(task5);
         inMemoryHistoryManager.remove(3);
-        ArrayList<Task> result = inMemoryHistoryManager.getHistory();
-        ArrayList<Task> expected = new ArrayList<>();
+        List<Task> result = inMemoryHistoryManager.getHistory();
+        List<Task> expected = new ArrayList<>();
         expected.add(task1);
         expected.add(task2);
         expected.add(task4);
@@ -129,8 +130,8 @@ class InMemoryHistoryManagerTest {
         inMemoryHistoryManager.add(task4);
         inMemoryHistoryManager.add(task5);
         inMemoryHistoryManager.remove(5);
-        ArrayList<Task> result = inMemoryHistoryManager.getHistory();
-        ArrayList<Task> expected = new ArrayList<>();
+        List<Task> result = inMemoryHistoryManager.getHistory();
+        List<Task> expected = new ArrayList<>();
         expected.add(task1);
         expected.add(task2);
         expected.add(task3);

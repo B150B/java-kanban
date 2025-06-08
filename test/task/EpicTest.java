@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -37,8 +38,8 @@ class EpicTest {
     void addSubtaskToEpic() {
         subtask2 = new SubTask("Сабтаск2", "Описание2", 1, Status.NEW);
         inMemoryTaskManager.addSubTask(subtask2);
-        ArrayList<Integer> result = epic.getSubtasksIds();
-        ArrayList<Integer> expected = new ArrayList<>();
+        List<Integer> result = epic.getSubtasksIds();
+        List<Integer> expected = new ArrayList<>();
         expected.add(2);
         expected.add(3);
         assertArrayEquals(result.toArray(), expected.toArray());
@@ -47,14 +48,14 @@ class EpicTest {
     @org.junit.jupiter.api.Test
     void deleteSubtaskFromEpic() {
         epic.clearAllSubTasksFromEpic();
-        ArrayList<Integer> result = epic.getSubtasksIds();
-        ArrayList<Integer> expected = new ArrayList<>();
+        List<Integer> result = epic.getSubtasksIds();
+        List<Integer> expected = new ArrayList<>();
         assertArrayEquals(result.toArray(), expected.toArray());
     }
 
     @org.junit.jupiter.api.Test
     void convertToCSVLineAndBack () {
-        ArrayList subTasksIds = new ArrayList<>();
+        List subTasksIds = new ArrayList<>();
         subTasksIds.add(9);
         subTasksIds.add(10);
         Epic epic4 = new Epic(5,"Эпик 5","Описание эпика 5",Status.NEW , subTasksIds );
