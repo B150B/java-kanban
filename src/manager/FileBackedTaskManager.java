@@ -145,45 +145,6 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         save();
     }
 
-    @Override
-    public List<Epic> getAllEpic() {
-        return super.getAllEpic();
-    }
-
-    @Override
-    public List<SubTask> getAllSubTasks() {
-        return super.getAllSubTasks();
-    }
-
-    @Override
-    public List<Task> getAllTasks() {
-        return super.getAllTasks();
-    }
-
-    @Override
-    public Epic getEpic(int id) {
-        return super.getEpic(id);
-    }
-
-    @Override
-    public List<Task> getHistory() {
-        return super.getHistory();
-    }
-
-    @Override
-    public SubTask getSubTask(int id) {
-        return super.getSubTask(id);
-    }
-
-    @Override
-    public List<SubTask> getSubTasksFromEpic(int id) {
-        return super.getSubTasksFromEpic(id);
-    }
-
-    @Override
-    public Task getTask(int id) {
-        return super.getTask(id);
-    }
 
     @Override
     public void updateEpic(Epic updatedEpic) {
@@ -203,20 +164,4 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         save();
     }
 
-
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
-
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
-
-    @Override
-    public String toString() {
-        return super.toString();
-    }
 }

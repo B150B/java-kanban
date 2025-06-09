@@ -34,7 +34,7 @@ class EpicTest {
     }
 
 
-    @org.junit.jupiter.api.Test
+    @Test
     void addSubtaskToEpic() {
         subtask2 = new SubTask("Сабтаск2", "Описание2", 1, Status.NEW);
         inMemoryTaskManager.addSubTask(subtask2);
@@ -45,7 +45,7 @@ class EpicTest {
         assertArrayEquals(result.toArray(), expected.toArray());
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void deleteSubtaskFromEpic() {
         epic.clearAllSubTasksFromEpic();
         List<Integer> result = epic.getSubtasksIds();
@@ -53,7 +53,7 @@ class EpicTest {
         assertArrayEquals(result.toArray(), expected.toArray());
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void convertToCSVLineAndBack () {
         List subTasksIds = new ArrayList<>();
         subTasksIds.add(9);

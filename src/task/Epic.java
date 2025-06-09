@@ -44,11 +44,12 @@ public class Epic extends Task {
     }
 
     public String subTasksIdtoString() {
-        String result = "";
+        StringBuilder result = new StringBuilder();
         for (Integer integer : subTasksIds) {
-            result += integer + ";";
+            result.append(integer);
+            result.append(";");
         }
-        return result;
+        return result.toString();
     }
 
     public static List<Integer> stringToSubTasksId(String string) {
