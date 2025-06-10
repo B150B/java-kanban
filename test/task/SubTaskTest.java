@@ -4,6 +4,7 @@ import manager.InMemoryTaskManager;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class SubTaskTest {
@@ -28,5 +29,16 @@ class SubTaskTest {
         boolean expected = subTask1.equals(subTask1);
         boolean result = subTask1.getId() == subTask1.getId();
         assertEquals(expected, result);
+    }
+
+
+    @Test
+    void convertToCSVLineAndBack() {
+        SubTask subTask4 = new SubTask(5, "Сабтаск 4", "Описание сабтаска 4", Status.NEW, 4);
+        String subTaskInCSVLine = subTask4.toCSVLine();
+        SubTask subTask5 = SubTask.fromCSVLine(subTaskInCSVLine);
+        String result = subTask5.toString();
+        String expected = subTask4.toString();
+        assertEquals(result, expected);
     }
 }
