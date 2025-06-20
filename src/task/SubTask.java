@@ -42,8 +42,8 @@ public class SubTask extends Task {
                             "Длительность - %s, Дата начала - %s, Дата окончания - %s", getId(), partOfEpic, getName(),
                     getDescription(), getStatus().toString(), getDuration(), getStartTime(), getEndTime());
         } else {
-            return String.format("%n-ID подзадачи - %d, Часть Эпика - %d Название - %s, Описание - %s, Статус - %s"
-                    , getId(), partOfEpic, getName(), getDescription(), getStatus().toString());
+            return String.format("%n-ID подзадачи - %d, Часть Эпика - %d Название - %s, Описание - %s, Статус - %s",
+                     getId(), partOfEpic, getName(), getDescription(), getStatus().toString());
         }
     }
 
