@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,7 +69,8 @@ class EpicTest {
     void convertToCSVLineAndBack() {
         List subTasksIds = new ArrayList<>();
         subTasksIds.add(6);
-        Epic epic4 = new Epic(5, "Эпик 5", "Описание эпика 5", Status.NEW, subTasksIds, Duration.ofMinutes(40), LocalDateTime.now(), LocalDateTime.now());
+        LocalDateTime testLocalDateTime = LocalDateTime.of(2025, Month.MARCH,21,21,21);
+        Epic epic4 = new Epic(5, "Эпик 5", "Описание эпика 5", Status.NEW, subTasksIds, Duration.ofMinutes(40), testLocalDateTime, testLocalDateTime);
         String epicInString = epic4.toCSVLine();
         Epic epic5 = Epic.fromCSVLine(epicInString);
         String result = epic5.toString();
