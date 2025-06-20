@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class FileBackedTaskManager extends InMemoryTaskManager {
@@ -30,15 +31,9 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             }
 
             List<String> taskCSVLinesArray = new ArrayList<>();
-            for (Task task : taskHashMap.values()) {
-                taskCSVLinesArray.add(task.toCSVLine());
-            }
-            for (Epic epic : epicHashMap.values()) {
-                taskCSVLinesArray.add(epic.toCSVLine());
-            }
-            for (SubTask subTask : subTaskHashMap.values()) {
-                taskCSVLinesArray.add(subTask.toCSVLine());
-            }
+            taskHashMap.values().stream().forEach(task -> taskCSVLinesArray.add(task.toCSVLine()));
+            epicHashMap.values().stream().forEach(epic -> taskCSVLinesArray.add(epic.toCSVLine()));
+            subTaskHashMap.values().stream().forEach(subTask -> taskCSVLinesArray.add(subTask.toCSVLine()));
             Files.write(file.toPath(), taskCSVLinesArray);
         } catch (Exception exception) {
             System.out.println("Произошла ошибка записи в файл! " + exception.getMessage());
@@ -50,7 +45,8 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
             while (bufferedReader.ready()) {
                 String[] taskCSVArray = bufferedReader.readLine().split("\\R");
-                for (String taskCSV : taskCSVArray) {
+
+                Arrays.stream(taskCSVArray).forEach(taskCSV -> {
                     String[] taskData = taskCSV.split(",");
                     TaskType taskType = TaskType.valueOf(taskData[1]);
                     switch (taskType) {
@@ -66,7 +62,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                             Epic epic = Epic.fromCSVLine(taskCSV);
                             restoredManager.putEpicWithID(epic);
                     }
-                }
+                });
             }
         } catch (Exception exception) {
             System.out.println("Ошибка загрузки файла! " + exception.getMessage());

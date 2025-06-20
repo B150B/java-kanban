@@ -139,4 +139,9 @@ class InMemoryHistoryManagerTest {
         assertArrayEquals(expected.toArray(), result.toArray());
     }
 
+    @Test
+    void nullStory() {
+        assertTrue(inMemoryHistoryManager.getHistory().isEmpty());
+    }
+
 }

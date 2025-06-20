@@ -1,5 +1,7 @@
 package task;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Task {
@@ -8,6 +10,8 @@ public class Task {
     private String name;
     private String description;
     private Status status;
+    private Duration duration;
+    private LocalDateTime startTime;
 
 
     public Task(String name, String description) {
@@ -27,6 +31,24 @@ public class Task {
         this.description = description;
         this.name = name;
         this.status = status;
+    }
+
+    public Task(String name, String description, Status status, Duration duration, LocalDateTime startTime) {
+        this.description = description;
+        this.name = name;
+        this.status = status;
+        this.duration = duration;
+        this.startTime = startTime;
+    }
+
+
+    public Task(int id, String name, String description, Status status, Duration duration, LocalDateTime startTime) {
+        this.id = id;
+        this.description = description;
+        this.name = name;
+        this.status = status;
+        this.duration = duration;
+        this.startTime = startTime;
     }
 
 
@@ -62,10 +84,40 @@ public class Task {
         this.status = status;
     }
 
+    public Duration getDuration() {
+        if (hasDuration()) {
+            return duration;
+        } else {
+            return Duration.ofMinutes(0);
+        }
+    }
+
+    public void setDuration(Duration duration) {
+        this.duration = duration;
+    }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public LocalDateTime getEndTime() {
+        return startTime.plus(duration);
+    }
 
     @Override
     public String toString() {
-        return String.format("%nID задачи - %d, Название - %s, Описание - %s, Статус - %s", id, name, description, status.toString());
+        if (hasDuration()) {
+            return String.format("%nID задачи - %d, Название - %s, Описание - %s, Статус - %s, " +
+                            "Длительность - %s, Дата начала - %s, Дата окончания - %s",
+                    id, name, description, status.toString(), getDuration(), getStartTime(), getEndTime());
+        } else {
+            return String.format("%nID задачи - %d, Название - %s, Описание - %s, Статус - %s ",
+                    id, name, description, status.toString());
+        }
     }
 
 
@@ -82,8 +134,29 @@ public class Task {
         return hash;
     }
 
+    public boolean hasDuration() {
+        return (duration != null);
+    }
+
+    public boolean hasOverlap(Task task) {
+        if (!this.hasDuration() || !task.hasDuration()) {
+            return false;
+        } else {
+            return ((this.getStartTime().isBefore(task.getEndTime())) && (this.getEndTime().isAfter(task.getStartTime())));
+        }
+    }
+
+
     public String toCSVLine() {
-        return String.format("%d,%s,%s,%s,%s", id, TaskType.TASK.toString(), name, getStatus().toString(), description);
+        if (hasDuration()) {
+            return String.format("%d,%s,%s,%s,%s,%d,%s",
+                    id, TaskType.TASK.toString(), name, getStatus().toString(),
+                    description, duration.toMinutes(), startTime.toString());
+        } else {
+            return String.format("%d,%s,%s,%s,%s",
+                    id, TaskType.TASK.toString(), name, getStatus().toString(),
+                    description);
+        }
     }
 
 
@@ -93,7 +166,14 @@ public class Task {
         String name = dataArray[2];
         Status status = Status.valueOf(dataArray[3]);
         String description = dataArray[4];
-        return new Task(id, name, description, status);
+
+        if (dataArray.length == 5) {
+            return new Task(id, name, description, status);
+        } else {
+            Duration duration = Duration.ofMinutes(Integer.parseInt(dataArray[5]));
+            LocalDateTime startTime = LocalDateTime.parse(dataArray[6]);
+            return new Task(id, name, description, status, duration, startTime);
+        }
     }
 
 }

@@ -4,6 +4,9 @@ import manager.InMemoryTaskManager;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class TaskTest {
@@ -32,7 +35,7 @@ class TaskTest {
 
     @Test
     void convertToCSVLineAndBack() {
-        Task task4 = new Task(5, "Таск 4", "Описание таска 4", Status.NEW);
+        Task task4 = new Task(5, "Таск 4", "Описание таска 4", Status.NEW, Duration.ofMinutes(60), LocalDateTime.now());
         String TaskInCSVLine = task4.toCSVLine();
         Task task = Task.fromCSVLine(TaskInCSVLine);
         String result = task.toString();

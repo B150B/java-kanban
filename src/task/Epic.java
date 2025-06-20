@@ -1,11 +1,16 @@
 package task;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Epic extends Task {
 
     private List<Integer> subTasksIds;
+    private LocalDateTime endTime;
 
     public Epic(String name, String description) {
         super(name, description);
@@ -17,10 +22,43 @@ public class Epic extends Task {
         this.subTasksIds = subTasksIds;
     }
 
+    public Epic(String name, String description, Status status, List<Integer> subTasksIds, Duration duration, LocalDateTime startTime) {
+        super(name, description, status, duration, startTime);
+        this.subTasksIds = subTasksIds;
+    }
+
+    public Epic(int id, String name, String description, Status status, List<Integer> subTasksIds, Duration duration, LocalDateTime startTime) {
+        super(id, name, description, status, duration, startTime);
+        this.subTasksIds = subTasksIds;
+    }
+
+    public Epic(int id, String name, String description, Status status, List<Integer> subTasksIds, Duration duration, LocalDateTime startTime, LocalDateTime endTime) {
+        super(id, name, description, status, duration, startTime);
+        this.subTasksIds = subTasksIds;
+        this.endTime = endTime;
+    }
+
 
     @Override
     public String toString() {
-        return String.format("%nID задачи - %d, Название - %s, Описание - %s, Статус - %s, входящие подзадачи - %s", getId(), getName(), getDescription(), getStatus().toString(), subTasksIds.toString());
+        if (hasDuration()) {
+            return String.format("%nID задачи - %d, Название - %s, Описание - %s, Статус - %s, входящие подзадачи - %s, " +
+                            "Длительность - %s, Дата начала - %s, Дата окончания - %s ",
+                    getId(), getName(), getDescription(), getStatus().toString(), subTasksIds.toString(), getDuration(),
+                    getStartTime(), getEndTime());
+        } else {
+            return String.format("%nID задачи - %d, Название - %s, Описание - %s, Статус - %s, входящие подзадачи - %s, ",
+                    getId(), getName(), getDescription(), getStatus().toString(), subTasksIds.toString());
+        }
+    }
+
+    @Override
+    public LocalDateTime getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(LocalDateTime endTime) {
+        this.endTime = endTime;
     }
 
     public void addSubtaskToEpic(SubTask subTask) {
@@ -44,30 +82,28 @@ public class Epic extends Task {
     }
 
     public String subTasksIdtoString() {
-        StringBuilder result = new StringBuilder();
-        for (Integer integer : subTasksIds) {
-            result.append(integer);
-            result.append(";");
-        }
-        return result.toString();
+        return subTasksIds.stream()
+                .map(String::valueOf)
+                .collect(Collectors.joining(";"));
     }
 
     public static List<Integer> stringToSubTasksId(String string) {
-        List<Integer> result = new ArrayList<>();
-        String[] stringArray = string.split(";");
-        for (String intString : stringArray) {
-            if (intString.isBlank()) {
-                break;
-            } else {
-                result.add(Integer.parseInt(intString));
-            }
-        }
-        return result;
+        return Arrays.stream(string.split(";"))
+                .filter(s -> !s.isBlank())
+                .map(Integer::parseInt)
+                .collect(Collectors.toList());
     }
 
     @Override
     public String toCSVLine() {
-        return String.format("%d,%s,%s,%s,%s,%s", getId(), TaskType.EPIC.toString(), getName(), getStatus().toString(), getDescription(), subTasksIdtoString());
+        if (hasDuration()) {
+            return String.format("%d,%s,%s,%s,%s,%s,%d,%s,%s", getId(), TaskType.EPIC.toString(), getName(),
+                    getStatus().toString(), getDescription(), subTasksIdtoString(), getDuration().toMinutes(),
+                    getStartTime().toString(), getEndTime().toString());
+        } else {
+            return String.format("%d,%s,%s,%s,%s,%s", getId(), TaskType.EPIC.toString(), getName(),
+                    getStatus().toString(), getDescription(), subTasksIdtoString());
+        }
     }
 
 
@@ -78,7 +114,17 @@ public class Epic extends Task {
         Status status = Status.valueOf(dataArray[3]);
         String description = dataArray[4];
         List<Integer> subTasksId = stringToSubTasksId(dataArray[5]);
-        return new Epic(id, name, description, status, subTasksId);
+
+        if (dataArray.length == 6) {
+            return new Epic(id, name, description, status, subTasksId);
+        } else {
+            Duration duration = Duration.ofMinutes(Integer.parseInt(dataArray[6]));
+            LocalDateTime startTime = LocalDateTime.parse(dataArray[7]);
+            LocalDateTime endTime = LocalDateTime.parse(dataArray[7]);
+            return new Epic(id, name, description, status, subTasksId, duration, startTime, endTime);
+        }
+
+
     }
 
 

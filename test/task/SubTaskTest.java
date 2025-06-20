@@ -5,6 +5,9 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class SubTaskTest {
@@ -18,8 +21,8 @@ class SubTaskTest {
         inMemoryTaskManager = new InMemoryTaskManager();
         Epic epic = new Epic("Эпик", "Описание Эпика");
         inMemoryTaskManager.addEpic(epic);
-        subTask1 = new SubTask("Сабтаск1", "Описание1", 1, Status.NEW);
-        subTask2 = new SubTask("Сабтаск2", "Описание2", 1, Status.NEW);
+        subTask1 = new SubTask("Сабтаск1", "Описание1", Status.NEW, 1, Duration.ofMinutes(40), LocalDateTime.now());
+        subTask2 = new SubTask("Сабтаск2", "Описание2", Status.NEW, 1, Duration.ofMinutes(40), LocalDateTime.now());
 
 
     }
@@ -34,7 +37,7 @@ class SubTaskTest {
 
     @Test
     void convertToCSVLineAndBack() {
-        SubTask subTask4 = new SubTask(5, "Сабтаск 4", "Описание сабтаска 4", Status.NEW, 4);
+        SubTask subTask4 = new SubTask(5, "Сабтаск 4", "Описание сабтаска 4", Status.NEW, 4, Duration.ofMinutes(60), LocalDateTime.now());
         String subTaskInCSVLine = subTask4.toCSVLine();
         SubTask subTask5 = SubTask.fromCSVLine(subTaskInCSVLine);
         String result = subTask5.toString();

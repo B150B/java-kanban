@@ -1,11 +1,14 @@
 package task;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+
 public class SubTask extends Task {
 
     private int partOfEpic;
 
 
-    public SubTask(String name, String description, int partOfEpic, Status status) {
+    public SubTask(String name, String description, Status status, int partOfEpic) {
         super(name, description);
         this.partOfEpic = partOfEpic;
         setStatus(status);
@@ -13,6 +16,16 @@ public class SubTask extends Task {
 
     public SubTask(int id, String name, String description, Status status, int partOfEpic) {
         super(id, name, description, status);
+        this.partOfEpic = partOfEpic;
+    }
+
+    public SubTask(String name, String description, Status status, int partOfEpic, Duration duration, LocalDateTime localDateTime) {
+        super(name, description, status, duration, localDateTime);
+        this.partOfEpic = partOfEpic;
+    }
+
+    public SubTask(int id, String name, String description, Status status, int partOfEpic, Duration duration, LocalDateTime localDateTime) {
+        super(id, name, description, status, duration, localDateTime);
         this.partOfEpic = partOfEpic;
     }
 
@@ -24,12 +37,27 @@ public class SubTask extends Task {
 
     @Override
     public String toString() {
-        return String.format("%n-ID подзадачи - %d, Часть Эпика - %d Название - %s, Описание - %s, Статус - %s", getId(), partOfEpic, getName(), getDescription(), getStatus().toString());
+        if (hasDuration()) {
+            return String.format("%n-ID подзадачи - %d, Часть Эпика - %d Название - %s, Описание - %s, Статус - %s, " +
+                            "Длительность - %s, Дата начала - %s, Дата окончания - %s", getId(), partOfEpic, getName(),
+                    getDescription(), getStatus().toString(), getDuration(), getStartTime(), getEndTime());
+        } else {
+            return String.format("%n-ID подзадачи - %d, Часть Эпика - %d Название - %s, Описание - %s, Статус - %s"
+                    , getId(), partOfEpic, getName(), getDescription(), getStatus().toString());
+        }
     }
 
 
     public String toCSVLine() {
-        return String.format("%d,%s,%s,%s,%s,%d", getId(), TaskType.SUBTASK.toString(), getName(), getStatus().toString(), getDescription(), getPartOfEpic());
+        if (hasDuration()) {
+            return String.format("%d,%s,%s,%s,%s,%d,%d,%s",
+                    getId(), TaskType.SUBTASK.toString(), getName(), getStatus().toString(), getDescription(),
+                    getPartOfEpic(), getDuration().toMinutes(), getStartTime().toString());
+        } else {
+            return String.format("%d,%s,%s,%s,%s,%d",
+                    getId(), TaskType.SUBTASK.toString(), getName(), getStatus().toString(), getDescription(),
+                    getPartOfEpic());
+        }
     }
 
     public static SubTask fromCSVLine(String stringData) {
@@ -39,7 +67,16 @@ public class SubTask extends Task {
         Status status = Status.valueOf(dataArray[3]);
         String description = dataArray[4];
         int partOfEpic = Integer.parseInt(dataArray[5]);
-        return new SubTask(id, name, description, status, partOfEpic);
+
+        if (dataArray.length == 6) {
+            return new SubTask(id, name, description, status, partOfEpic);
+        } else {
+            Duration duration = Duration.ofMinutes(Integer.parseInt(dataArray[6]));
+            LocalDateTime startTime = LocalDateTime.parse(dataArray[7]);
+            return new SubTask(id, name, description, status, partOfEpic, duration, startTime);
+        }
+
+
     }
 
 
