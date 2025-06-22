@@ -11,6 +11,7 @@ public class Epic extends Task {
 
     private List<Integer> subTasksIds;
     private LocalDateTime endTime;
+    private static final int LENGTH_WITHOUT_DURATION = 6;
 
     public Epic(String name, String description) {
         super(name, description);
@@ -70,7 +71,7 @@ public class Epic extends Task {
     }
 
     public void deleteSubtaskFromEpic(int subTaskId) {
-        subTasksIds.remove(subTaskId);
+        subTasksIds.remove(Integer.valueOf(subTaskId));
     }
 
     public void clearAllSubTasksFromEpic() {
@@ -115,7 +116,7 @@ public class Epic extends Task {
         String description = dataArray[4];
         List<Integer> subTasksId = stringToSubTasksId(dataArray[5]);
 
-        if (dataArray.length == 6) {
+        if (dataArray.length == LENGTH_WITHOUT_DURATION) {
             return new Epic(id, name, description, status, subTasksId);
         } else {
             Duration duration = Duration.ofMinutes(Integer.parseInt(dataArray[6]));

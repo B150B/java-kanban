@@ -10,13 +10,13 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class InMemoryHistoryManagerTest {
-    static InMemoryHistoryManager inMemoryHistoryManager;
-    static InMemoryTaskManager inMemoryTaskManager;
+    private HistoryManager inMemoryHistoryManager;
+    private TaskManager inMemoryTaskManager;
 
     @BeforeEach
     void beforeEach() {
-        inMemoryHistoryManager = new InMemoryHistoryManager();
-        inMemoryTaskManager = new InMemoryTaskManager();
+        inMemoryHistoryManager = Managers.getDefaultHistory();
+        inMemoryTaskManager = Managers.getDefault();
     }
 
     @Test

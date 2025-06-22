@@ -1,7 +1,8 @@
 package task;
 
-import manager.InMemoryTaskManager;
-import org.junit.jupiter.api.BeforeAll;
+import manager.Managers;
+import manager.TaskManager;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
@@ -12,19 +13,19 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SubTaskTest {
 
-    static SubTask subTask1;
-    static SubTask subTask2;
-    static InMemoryTaskManager inMemoryTaskManager;
+    private SubTask subTask1;
+    private SubTask subTask2;
+    private TaskManager inMemoryTaskManager;
 
-    @BeforeAll
-    public static void beforeAll() {
-        inMemoryTaskManager = new InMemoryTaskManager();
+
+
+    @BeforeEach
+    public void beforeEach() {
+        inMemoryTaskManager = Managers.getDefault();
         Epic epic = new Epic("Эпик", "Описание Эпика");
         inMemoryTaskManager.addEpic(epic);
         subTask1 = new SubTask("Сабтаск1", "Описание1", Status.NEW, 1, Duration.ofMinutes(40), LocalDateTime.now());
         subTask2 = new SubTask("Сабтаск2", "Описание2", Status.NEW, 1, Duration.ofMinutes(40), LocalDateTime.now());
-
-
     }
 
     @Test

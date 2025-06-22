@@ -1,7 +1,8 @@
 package task;
 
-import manager.InMemoryTaskManager;
-import org.junit.jupiter.api.BeforeAll;
+import manager.Managers;
+import manager.TaskManager;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
@@ -10,20 +11,18 @@ import java.time.LocalDateTime;
 import static org.junit.jupiter.api.Assertions.*;
 
 class TaskTest {
-    static Task task1;
-    static Task task2;
-    static InMemoryTaskManager inMemoryTaskManager;
+    private Task task1;
+    private Task task2;
+    private TaskManager inMemoryTaskManager;
 
 
-    @BeforeAll
-    public static void beforeAll() {
-        inMemoryTaskManager = new InMemoryTaskManager();
+    @BeforeEach
+    public void beforeEach() {
+        inMemoryTaskManager = Managers.getDefault();
         task1 = new Task("Таск1", "Описание1");
         task2 = new Task("Таск2", "Описание2");
         inMemoryTaskManager.addTask(task1);
         inMemoryTaskManager.addTask(task2);
-
-
     }
 
     @Test

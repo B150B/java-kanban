@@ -12,6 +12,7 @@ public class Task {
     private Status status;
     private Duration duration;
     private LocalDateTime startTime;
+    private static final int LENGTH_WITHOUT_DURATION = 5;
 
 
     public Task(String name, String description) {
@@ -167,7 +168,7 @@ public class Task {
         Status status = Status.valueOf(dataArray[3]);
         String description = dataArray[4];
 
-        if (dataArray.length == 5) {
+        if (dataArray.length == LENGTH_WITHOUT_DURATION) {
             return new Task(id, name, description, status);
         } else {
             Duration duration = Duration.ofMinutes(Integer.parseInt(dataArray[5]));

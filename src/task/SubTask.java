@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 public class SubTask extends Task {
 
     private int partOfEpic;
+    private static final int LENGTH_WITHOUT_DURATION = 6;
 
 
     public SubTask(String name, String description, Status status, int partOfEpic) {
@@ -43,7 +44,7 @@ public class SubTask extends Task {
                     getDescription(), getStatus().toString(), getDuration(), getStartTime(), getEndTime());
         } else {
             return String.format("%n-ID подзадачи - %d, Часть Эпика - %d Название - %s, Описание - %s, Статус - %s",
-                     getId(), partOfEpic, getName(), getDescription(), getStatus().toString());
+                    getId(), partOfEpic, getName(), getDescription(), getStatus().toString());
         }
     }
 
@@ -68,7 +69,7 @@ public class SubTask extends Task {
         String description = dataArray[4];
         int partOfEpic = Integer.parseInt(dataArray[5]);
 
-        if (dataArray.length == 6) {
+        if (dataArray.length == LENGTH_WITHOUT_DURATION) {
             return new SubTask(id, name, description, status, partOfEpic);
         } else {
             Duration duration = Duration.ofMinutes(Integer.parseInt(dataArray[6]));

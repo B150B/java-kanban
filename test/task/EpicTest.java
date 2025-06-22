@@ -1,6 +1,8 @@
 package task;
 
 import manager.InMemoryTaskManager;
+import manager.Managers;
+import manager.TaskManager;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,24 +17,22 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class EpicTest {
 
-    static Epic epic;
-    static SubTask subtask1;
-    static SubTask subtask2;
-    static InMemoryTaskManager inMemoryTaskManager;
-    private InMemoryTaskManager statusTestingTaskManager;
-    Epic epicForStatusTest;
+    private Epic epic;
+    private SubTask subtask1;
+    private SubTask subtask2;
+    private TaskManager inMemoryTaskManager;
+    private TaskManager statusTestingTaskManager;
+    private Epic epicForStatusTest;
 
-    @BeforeAll
-    public static void beforeAll() {
-        inMemoryTaskManager = new InMemoryTaskManager();
+
+
+    @BeforeEach
+    public void beforeEach() {
+        inMemoryTaskManager = Managers.getDefault();
         epic = new Epic("Эпик1", "Описание1");
         inMemoryTaskManager.addEpic(epic);
         subtask1 = new SubTask("Сабтаск1", "Описание1", Status.NEW, 1, Duration.ofMinutes(40), LocalDateTime.now().plus(Duration.ofMinutes(100)));
         inMemoryTaskManager.addSubTask(subtask1);
-    }
-
-    @BeforeEach
-    public void beforeEach() {
         statusTestingTaskManager = new InMemoryTaskManager();
         epicForStatusTest = new Epic("Эпик для теста статусов", "Эпик для теста статусов");
     }
