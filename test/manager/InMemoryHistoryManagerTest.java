@@ -10,13 +10,13 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class InMemoryHistoryManagerTest {
-    static InMemoryHistoryManager inMemoryHistoryManager;
-    static InMemoryTaskManager inMemoryTaskManager;
+    private HistoryManager inMemoryHistoryManager;
+    private TaskManager inMemoryTaskManager;
 
     @BeforeEach
     void beforeEach() {
-        inMemoryHistoryManager = new InMemoryHistoryManager();
-        inMemoryTaskManager = new InMemoryTaskManager();
+        inMemoryHistoryManager = Managers.getDefaultHistory();
+        inMemoryTaskManager = Managers.getDefault();
     }
 
     @Test
@@ -137,6 +137,11 @@ class InMemoryHistoryManagerTest {
         expected.add(task3);
         expected.add(task4);
         assertArrayEquals(expected.toArray(), result.toArray());
+    }
+
+    @Test
+    void nullStory() {
+        assertTrue(inMemoryHistoryManager.getHistory().isEmpty());
     }
 
 }

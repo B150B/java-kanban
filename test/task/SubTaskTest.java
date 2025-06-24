@@ -1,27 +1,31 @@
 package task;
 
-import manager.InMemoryTaskManager;
-import org.junit.jupiter.api.BeforeAll;
+import manager.Managers;
+import manager.TaskManager;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+
+import java.time.Duration;
+import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class SubTaskTest {
 
-    static SubTask subTask1;
-    static SubTask subTask2;
-    static InMemoryTaskManager inMemoryTaskManager;
+    private SubTask subTask1;
+    private SubTask subTask2;
+    private TaskManager inMemoryTaskManager;
 
-    @BeforeAll
-    public static void beforeAll() {
-        inMemoryTaskManager = new InMemoryTaskManager();
+
+
+    @BeforeEach
+    public void beforeEach() {
+        inMemoryTaskManager = Managers.getDefault();
         Epic epic = new Epic("Эпик", "Описание Эпика");
         inMemoryTaskManager.addEpic(epic);
-        subTask1 = new SubTask("Сабтаск1", "Описание1", 1, Status.NEW);
-        subTask2 = new SubTask("Сабтаск2", "Описание2", 1, Status.NEW);
-
-
+        subTask1 = new SubTask("Сабтаск1", "Описание1", Status.NEW, 1, Duration.ofMinutes(40), LocalDateTime.now());
+        subTask2 = new SubTask("Сабтаск2", "Описание2", Status.NEW, 1, Duration.ofMinutes(40), LocalDateTime.now());
     }
 
     @Test
@@ -34,7 +38,7 @@ class SubTaskTest {
 
     @Test
     void convertToCSVLineAndBack() {
-        SubTask subTask4 = new SubTask(5, "Сабтаск 4", "Описание сабтаска 4", Status.NEW, 4);
+        SubTask subTask4 = new SubTask(5, "Сабтаск 4", "Описание сабтаска 4", Status.NEW, 4, Duration.ofMinutes(60), LocalDateTime.now());
         String subTaskInCSVLine = subTask4.toCSVLine();
         SubTask subTask5 = SubTask.fromCSVLine(subTaskInCSVLine);
         String result = subTask5.toString();
