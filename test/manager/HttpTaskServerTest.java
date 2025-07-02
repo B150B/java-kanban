@@ -1,6 +1,6 @@
 package manager;
 
-import API.HttpTaskServer;
+import api.HttpTaskServer;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.junit.jupiter.api.AfterEach;
