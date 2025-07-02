@@ -77,9 +77,10 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
 
     @Override
-    public void addSubTask(SubTask subTask) {
-        super.addSubTask(subTask);
+    public boolean addSubTask(SubTask subTask) {
+        boolean result = super.addSubTask(subTask);
         save();
+        return result;
     }
 
     public void putTaskWithID(Task task) {
@@ -104,9 +105,10 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     }
 
     @Override
-    public void addTask(Task task) {
-        super.addTask(task);
+    public boolean addTask(Task task) {
+        boolean result = super.addTask(task);
         save();
+        return result;
     }
 
     @Override

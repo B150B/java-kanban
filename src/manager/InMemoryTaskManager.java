@@ -26,10 +26,10 @@ public class InMemoryTaskManager implements TaskManager {
 
 
     @Override
-    public void addTask(Task task) {
+    public boolean addTask(Task task) {
         if (hasOverlapWithAnyTask(task)) {
             System.out.println("При добавлении задачи произошло пересечение! Задача не добавлена");
-            return;
+            return false;
         } else {
             int newId = getNewId();
             task.setId(newId);
@@ -37,6 +37,7 @@ public class InMemoryTaskManager implements TaskManager {
             if (task.hasDuration()) {
                 sortedTasks.add(task);
             }
+            return true;
         }
     }
 
@@ -50,10 +51,10 @@ public class InMemoryTaskManager implements TaskManager {
 
 
     @Override
-    public void addSubTask(SubTask subTask) {
+    public boolean addSubTask(SubTask subTask) {
         if (hasOverlapWithAnyTask(subTask)) {
             System.out.println("При добавлении задачи произошло пересечение! Задача не добавлена");
-            return;
+            return false;
         } else {
             int newId = getNewId();
             subTask.setId(newId);
@@ -65,6 +66,7 @@ public class InMemoryTaskManager implements TaskManager {
             if (subTask.hasDuration()) {
                 sortedTasks.add(subTask);
             }
+            return true;
         }
     }
 
@@ -112,9 +114,9 @@ public class InMemoryTaskManager implements TaskManager {
         subTaskHashMap.clear();
         epicHashMap.values().stream()
                 .forEach(epic -> {
-            epic.clearAllSubTasksFromEpic();
-            setEpicStatus(epic);
-        });
+                    epic.clearAllSubTasksFromEpic();
+                    setEpicStatus(epic);
+                });
     }
 
 
@@ -212,9 +214,9 @@ public class InMemoryTaskManager implements TaskManager {
         inMemoryHistoryManager.remove(id);
         epicHashMap.get(id).getSubtasksIds().stream()
                 .forEach(subTasksId -> {
-            subTaskHashMap.remove(subTasksId);
-            inMemoryHistoryManager.remove(subTasksId);
-        });
+                    subTaskHashMap.remove(subTasksId);
+                    inMemoryHistoryManager.remove(subTasksId);
+                });
         epicHashMap.remove(id);
     }
 
