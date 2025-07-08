@@ -11,7 +11,9 @@ import java.net.InetSocketAddress;
 public class HttpTaskServer {
     private static final int PORT = 8080;
     private HttpServer httpServer;
-    private final InMemoryTaskManager manager;
+    private final InMemoryTaskManager manager; // Я не могу обозначить здесь интерфейс, потому что только у
+    // класса InMemoryTaskManager есть метод и поля для работы с Prioritized. Поэтому все хэндлеры принимают
+    //в качестве параметра конкретно InMemoryTaskManager
 
 
     public HttpTaskServer(InMemoryTaskManager inMemoryTaskManager) {
@@ -24,6 +26,8 @@ public class HttpTaskServer {
 
 
     public static void main(String[] args) throws IOException {
+        HttpTaskServer httpTaskServer = new HttpTaskServer(new InMemoryTaskManager());
+        httpTaskServer.startServer();
 
     }
 

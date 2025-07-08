@@ -2,9 +2,6 @@ package api;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.TypeAdapter;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 import com.sun.net.httpserver.HttpExchange;
 
 import java.io.IOException;
@@ -70,42 +67,6 @@ public class BaseHttpHandler {
         return Integer.parseInt(path.replaceAll("\\D+", ""));
     }
 
-
-    private static class DurationAdapter extends TypeAdapter<Duration> {
-        @Override
-        public void write(JsonWriter jsonWriter, Duration duration) throws IOException {
-            if (duration == null) {
-                jsonWriter.nullValue();
-            } else {
-                jsonWriter.value(duration.toString());
-            }
-        }
-
-        @Override
-        public Duration read(JsonReader jsonReader) throws IOException {
-            return Duration.parse(jsonReader.nextString());
-        }
-    }
-
-    private static class LocalDateTimeAdapter extends TypeAdapter<LocalDateTime> {
-
-        @Override
-        public void write(JsonWriter jsonWriter, LocalDateTime localDateTime) throws IOException {
-            if (localDateTime == null) {
-                jsonWriter.nullValue();
-            } else {
-                jsonWriter.value(localDateTime.toString());
-            }
-
-        }
-
-        @Override
-        public LocalDateTime read(JsonReader jsonReader) throws IOException {
-            return LocalDateTime.parse(jsonReader.nextString());
-        }
-
-
-    }
 
 }
 
